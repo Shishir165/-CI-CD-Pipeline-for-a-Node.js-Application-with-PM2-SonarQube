@@ -25,11 +25,13 @@ jobs:
         run: npm test
 
       - name: Run SonarQube Scan
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
           npx sonar-scanner \
             -Dsonar.projectKey=node-cicd-lab \
             -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
-            -Dsonar.token=${{ secrets.SONAR_TOKEN }}
+            -Dsonar.token=$SONAR_TOKEN
 
   deploy:
     needs: build-test-sonar
